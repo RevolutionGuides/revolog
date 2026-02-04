@@ -1,65 +1,130 @@
-{
-  "meta": {
-    "version": "1.1",
-    "engine": "revolog-v4",
-    "description": "Realistic test rules for Revolog v4"
+[
+  {
+    "id": "R001",
+    "severity": "error",
+    "log_contains": ["ERROR", "failed to initialize", "cannot start macro"],
+    "required_context": ["macro_version", "system_specs"],
+    "evidence": "Macro failed to start due to initialization error.",
+    "conclusion": "Critical failure: Macro could not launch properly.",
+    "allowed_actions": [
+      "Restart your computer and try again",
+      "Check macro version compatibility with current game version",
+      "Ensure system meets minimum requirements"
+    ]
   },
-  "global_requirements": {
-    "required_context_fields": ["environment", "software", "version"],
-    "minimum_log_lines": 1
+  {
+    "id": "R002",
+    "severity": "warning",
+    "log_contains": ["WARNING", "deprecated function", "outdated command"],
+    "required_context": ["macro_version"],
+    "evidence": "Macro uses outdated or deprecated commands.",
+    "conclusion": "Macro may run, but certain functions may not work as intended.",
+    "allowed_actions": [
+      "Update to the latest macro version",
+      "Review logs for deprecated function usage",
+      "Consider adjusting macro settings to remove deprecated features"
+    ]
   },
-  "rules": [
-    {
-      "id": "TEST_ERROR_1",
-      "severity": "error",
-      "matches": { "log_contains": ["ERROR"] },
-      "requires": { "context_fields": ["environment"] },
-      "evidence": { "must_reference_log": true },
-      "conclusion": { "type": "confirmed_issue", "summary": "Generic error detected", "allowed_actions": ["Check the log"] }
-    },
-    {
-      "id": "TEST_WARNING_1",
-      "severity": "warning",
-      "matches": { "log_contains": ["WARN"] },
-      "requires": { "context_fields": ["software"] },
-      "evidence": { "must_reference_log": true },
-      "conclusion": { "type": "confirmed_issue", "summary": "Generic warning detected", "allowed_actions": ["Investigate warning"] }
-    },
-    {
-      "id": "TEST_CONNECTION_ERROR",
-      "severity": "error",
-      "matches": { "log_contains": ["Connection refused", "Failed to connect"] },
-      "requires": { "context_fields": ["environment", "software"] },
-      "evidence": { "must_reference_log": true },
-      "conclusion": {
-        "type": "confirmed_issue",
-        "summary": "Connection error detected",
-        "allowed_actions": ["Check network connection", "Verify service is running"]
-      }
-    },
-    {
-      "id": "TEST_MEMORY_WARNING",
-      "severity": "warning",
-      "matches": { "log_contains": ["OutOfMemory", "Memory limit exceeded"] },
-      "requires": { "context_fields": ["software", "version"] },
-      "evidence": { "must_reference_log": true },
-      "conclusion": {
-        "type": "confirmed_issue",
-        "summary": "Memory usage warning",
-        "allowed_actions": ["Check memory usage", "Optimize application or increase limits"]
-      }
-    },
-    {
-      "id": "TEST_DISK_WARNING",
-      "severity": "warning",
-      "matches": { "log_contains": ["Disk full", "No space left"] },
-      "requires": { "context_fields": ["environment"] },
-      "evidence": { "must_reference_log": true },
-      "conclusion": {
-        "type": "confirmed_issue",
-        "summary": "Disk space warning",
-        "allowed_actions": ["Clean up disk space", "Add more storage"]
-      }
-    }
-  ]
-}
+  {
+    "id": "R003",
+    "severity": "confirmed",
+    "log_contains": ["SUCCESS", "completed task", "macro finished successfully"],
+    "required_context": [],
+    "evidence": "Macro completed tasks without errors.",
+    "conclusion": "Macro ran successfully and all tasks were completed.",
+    "allowed_actions": [
+      "No action required",
+      "You may review the task summary if desired"
+    ]
+  },
+  {
+    "id": "R004",
+    "severity": "error",
+    "log_contains": ["connection lost", "timeout", "network error"],
+    "required_context": ["network_status"],
+    "evidence": "Macro lost connection during execution.",
+    "conclusion": "Network connectivity issue detected.",
+    "allowed_actions": [
+      "Check your internet connection",
+      "Retry running the macro",
+      "If persistent, contact support or check server status"
+    ]
+  },
+  {
+    "id": "R005",
+    "severity": "warning",
+    "log_contains": ["high memory usage", "lag detected", "slow response"],
+    "required_context": ["system_specs"],
+    "evidence": "Macro is consuming excessive system resources.",
+    "conclusion": "Performance warning: Macro may slow down or freeze.",
+    "allowed_actions": [
+      "Close unnecessary programs to free memory",
+      "Restart macro after freeing resources",
+      "Consider upgrading system RAM or CPU if issue persists"
+    ]
+  },
+  {
+    "id": "R006",
+    "severity": "error",
+    "log_contains": ["invalid command", "unknown instruction", "syntax error"],
+    "required_context": ["macro_version"],
+    "evidence": "Macro attempted a command that is not recognized.",
+    "conclusion": "Macro script contains invalid commands or syntax errors.",
+    "allowed_actions": [
+      "Review macro script for invalid commands",
+      "Update to latest macro version",
+      "Correct syntax errors manually if possible"
+    ]
+  },
+  {
+    "id": "R007",
+    "severity": "warning",
+    "log_contains": ["low resources", "CPU usage high", "memory near limit"],
+    "required_context": ["system_specs"],
+    "evidence": "Macro is running while system resources are low.",
+    "conclusion": "Potential performance issues may occur.",
+    "allowed_actions": [
+      "Close other applications to reduce load",
+      "Restart macro after freeing resources",
+      "Monitor system usage during macro execution"
+    ]
+  },
+  {
+    "id": "R008",
+    "severity": "confirmed",
+    "log_contains": ["coins collected", "items gathered", "rewards obtained"],
+    "required_context": [],
+    "evidence": "Macro successfully collected items or currency.",
+    "conclusion": "Macro performed tasks and collected rewards as intended.",
+    "allowed_actions": [
+      "No action required",
+      "Optional: Review gathered items for confirmation"
+    ]
+  },
+  {
+    "id": "R009",
+    "severity": "error",
+    "log_contains": ["permission denied", "cannot access file", "read/write error"],
+    "required_context": ["system_specs", "macro_version"],
+    "evidence": "Macro could not access required files or folders.",
+    "conclusion": "File access permissions prevent macro from running.",
+    "allowed_actions": [
+      "Ensure macro has proper permissions on your system",
+      "Run macro as administrator",
+      "Check file/folder access rights"
+    ]
+  },
+  {
+    "id": "R010",
+    "severity": "warning",
+    "log_contains": ["unexpected restart", "macro halted", "manual intervention"],
+    "required_context": ["user_activity", "macro_version"],
+    "evidence": "Macro stopped unexpectedly and requires attention.",
+    "conclusion": "Macro execution interrupted; some tasks may be incomplete.",
+    "allowed_actions": [
+      "Resume macro manually",
+      "Check log for partially completed tasks",
+      "Ensure macro environment is stable before next run"
+    ]
+  }
+]
