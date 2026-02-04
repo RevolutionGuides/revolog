@@ -11,13 +11,16 @@
   <!-- Header -->
   <header class="fade-in">
     <h1>Revolog v4</h1>
-    <p>Deterministic log analyzer & AI support for Revolution Macro</p>
+    <p>Log analyzer & AI support for Revolution Macro</p>
   </header>
 
-  <!-- Auth Section -->
+  <!-- ======================
+       AUTH SECTION
+       ====================== -->
   <div class="container fade-in" id="authContainer">
     <div class="card">
       <h2>Login / Register</h2>
+      <input type="text" id="username" placeholder="Username">
       <input type="email" id="email" placeholder="Email">
       <input type="password" id="password" placeholder="Password">
       <button id="loginBtn">Login</button>
@@ -26,40 +29,43 @@
     </div>
   </div>
 
-  <!-- Main container (hidden until login) -->
+  <!-- ======================
+       MAIN CONTAINER
+       ====================== -->
   <div class="container fade-in" id="mainContainer" style="display:none;">
-    <!-- Input Card -->
+    <!-- Logs + AI input -->
     <div class="card fade-in">
       <h2>Logs Input</h2>
       <textarea id="logs" rows="10" placeholder="Paste Revolution Macro logs here..."></textarea>
 
       <h2>Custom Context / Question</h2>
-      <textarea id="context" rows="6" placeholder="Explain problem or environment..."></textarea>
+      <textarea id="context" rows="6" placeholder="Explain your problem or environment..."></textarea>
 
-      <button id="analyzeBtn">Analyze Logs / Ask AI</button>
+      <button id="analyzeBtn">Analyze / Ask AI</button>
     </div>
 
-    <!-- Output Card -->
+    <!-- Output -->
     <div class="card fade-in" id="outputContainer">
       <h2>Analysis Output</h2>
       <div id="output">Waiting for analysis...</div>
     </div>
   </div>
 
-  <!-- Admin Dashboard Modal -->
+  <!-- ======================
+       ADMIN DASHBOARD
+       ====================== -->
   <div id="dashboardModal">
     <div class="dashboard-content fade-in">
       <h2>Admin Dashboard</h2>
-      <input type="text" id="searchUser" placeholder="Search username">
-      <textarea id="dashboardUsers" rows="8" placeholder="User info appears here"></textarea>
-      <br>
-      <button id="grantCreditsBtn">Grant Credits</button>
-      <button id="banUserBtn">Ban User</button>
-      <button id="removeUserBtn">Remove User</button>
-      <button id="closeDashboardBtn">Close</button>
+      <input type="text" id="searchUser" placeholder="Search username/email">
+      <div id="userCardsContainer">
+        <!-- User cards generated dynamically -->
+      </div>
+      <button id="closeDashboardBtn">Close Dashboard</button>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="main.js"></script>
 </body>
 </html>
