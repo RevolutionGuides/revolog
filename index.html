@@ -3,69 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revolog v4 – Revolution Macro Analyzer</title>
+  <title>Revolog AI Support</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="fade-in">
-    <h1>Revolog v4</h1>
-    <p>Log analyzer & AI support for Revolution Macro</p>
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <header>
+    <h1>Revolog AI Support</h1>
+    <p>Analyze Revolution Macro logs or ask questions</p>
   </header>
 
-  <!-- ======================
-       AUTH SECTION
-       ====================== -->
-  <div class="container fade-in" id="authContainer">
-    <div class="card">
-      <h2>Login / Register</h2>
-      <input type="text" id="username" placeholder="Username">
-      <input type="email" id="email" placeholder="Email">
-      <input type="password" id="password" placeholder="Password">
+  <!-- =========================
+       AUTH CARD
+       ========================= -->
+  <div class="container">
+    <div class="card" id="authCard">
+      <h2>Login / Signup</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="email" id="email" placeholder="Email (optional)" />
+      <button id="signupBtn">Sign Up</button>
       <button id="loginBtn">Login</button>
-      <button id="registerBtn">Register</button>
-      <p id="authMsg"></p>
-    </div>
-  </div>
-
-  <!-- ======================
-       MAIN CONTAINER
-       ====================== -->
-  <div class="container fade-in" id="mainContainer" style="display:none;">
-    <!-- Logs + AI input -->
-    <div class="card fade-in">
-      <h2>Logs Input</h2>
-      <textarea id="logs" rows="10" placeholder="Paste Revolution Macro logs here..."></textarea>
-
-      <h2>Custom Context / Question</h2>
-      <textarea id="context" rows="6" placeholder="Explain your problem or environment..."></textarea>
-
-      <button id="analyzeBtn">Analyze / Ask AI</button>
+      <div id="authMessage"></div>
     </div>
 
-    <!-- Output -->
-    <div class="card fade-in" id="outputContainer">
-      <h2>Analysis Output</h2>
-      <div id="output">Waiting for analysis...</div>
+    <!-- =========================
+         AI INPUT CARD
+         ========================= -->
+    <div class="card" id="aiCard" style="display:none;">
+      <h2>Ask AI / Upload Logs</h2>
+      <textarea id="logs" rows="8" placeholder="Paste logs here (optional)"></textarea>
+      <textarea id="context" rows="4" placeholder="Add context or ask a question"></textarea>
+      <button id="analyzeBtn">Send to AI</button>
+      <div id="output">AI responses will appear here</div>
+      <p id="creditsDisplay"></p>
     </div>
-  </div>
 
-  <!-- ======================
-       ADMIN DASHBOARD
-       ====================== -->
-  <div id="dashboardModal">
-    <div class="dashboard-content fade-in">
+    <!-- =========================
+         ADMIN DASHBOARD
+         ========================= -->
+    <div class="card" id="adminCard" style="display:none;">
       <h2>Admin Dashboard</h2>
-      <input type="text" id="searchUser" placeholder="Search username/email">
-      <div id="userCardsContainer">
-        <!-- User cards generated dynamically -->
-      </div>
-      <button id="closeDashboardBtn">Close Dashboard</button>
+      <input type="text" id="searchUser" placeholder="Search username..." />
+      <button id="searchBtn">Search</button>
+      <div id="userList"></div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
