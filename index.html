@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revolog v4 – Revolution Macro AI</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Revolog – Account Access</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== AUTH CARD ===== -->
-  <div class="card fade-in" id="authCard">
-    <h2>Login / Signup</h2>
-    <input type="text" id="username" placeholder="Username (display name)">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <div id="authMessage" class="auth-message"></div>
-    <div class="button-group">
-      <button id="signupBtn">Signup</button>
-      <button id="loginBtn">Login</button>
+  <div class="auth-wrapper">
+
+    <!-- ===== SIGNUP CARD ===== -->
+    <div class="card signup-card">
+      <h2>Create Account</h2>
+
+      <input type="text" id="signupUsername" placeholder="Username" />
+      <input type="email" id="signupEmail" placeholder="Email" />
+      <input type="password" id="signupPassword" placeholder="Password" />
+
+      <label class="checkbox">
+        <input type="checkbox" id="signupShowPassword" />
+        Show password
+      </label>
+
+      <button id="signupBtn">Sign up</button>
+      <div id="signupMessage" class="message"></div>
     </div>
-  </div>
 
-  <!-- ===== AI CARD ===== -->
-  <div class="card fade-in" id="aiCard" style="display:none;">
-    <h2>AI Support – Revolution Macro</h2>
-    <textarea id="logs" rows="8" placeholder="Paste macro logs here..."></textarea>
-    <textarea id="context" rows="4" placeholder="Provide additional context or questions..."></textarea>
-    <div id="creditsDisplay" class="credits-display"></div>
-    <button id="analyzeBtn">Analyze / Ask AI</button>
-    <div id="output" class="output"></div>
-  </div>
+    <!-- ===== LOGIN CARD ===== -->
+    <div class="card login-card">
+      <h3>Already have an account?</h3>
 
-  <!-- ===== ADMIN CARD ===== -->
-  <div class="card fade-in" id="adminCard" style="display:none;">
-    <h2>Admin Dashboard</h2>
-    <input type="text" id="searchUsername" placeholder="Search username">
-    <button id="searchUserBtn">Search</button>
-    <div id="adminOutput"></div>
+      <input type="email" id="loginEmail" placeholder="Email" />
+      <input type="password" id="loginPassword" placeholder="Password" />
+
+      <label class="checkbox">
+        <input type="checkbox" id="loginShowPassword" />
+        Show password
+      </label>
+
+      <button id="loginBtn">Log in</button>
+      <div id="loginMessage" class="message"></div>
+    </div>
+
   </div>
 
   <script type="module" src="main.js"></script>
