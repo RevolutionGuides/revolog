@@ -1,89 +1,66 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "PASTE_YOURS_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOURS_HERE";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ===== ELEMENTS =====
-const signupUsername = document.getElementById("signupUsername");
-const signupEmail = document.getElementById("signupEmail");
-const signupPassword = document.getElementById("signupPassword");
-const signupShowPassword = document.getElementById("signupShowPassword");
-const signupBtn = document.getElementById("signupBtn");
-const signupMessage = document.getElementById("signupMessage");
+// Elements
+const suUser = document.getElementById("su-username");
+const suEmail = document.getElementById("su-email");
+const suPass = document.getElementById("su-password");
+const suMsg = document.getElementById("signupMsg");
 
-const loginEmail = document.getElementById("loginEmail");
-const loginPassword = document.getElementById("loginPassword");
-const loginShowPassword = document.getElementById("loginShowPassword");
-const loginBtn = document.getElementById("loginBtn");
-const loginMessage = document.getElementById("loginMessage");
+const liEmail = document.getElementById("li-email");
+const liPass = document.getElementById("li-password");
+const liMsg = document.getElementById("loginMsg");
 
-// ===== SHOW PASSWORD =====
-signupShowPassword.addEventListener("change", () => {
-  signupPassword.type = signupShowPassword.checked ? "text" : "password";
+// Show password
+document.querySelectorAll(".eye").forEach(btn => {
+  btn.onclick = () => {
+    const input = document.getElementById(btn.dataset.target);
+    input.type = input.type === "password" ? "text" : "password";
+  };
 });
 
-loginShowPassword.addEventListener("change", () => {
-  loginPassword.type = loginShowPassword.checked ? "text" : "password";
-});
-
-// ===== SIGNUP =====
-signupBtn.addEventListener("click", async () => {
-  signupMessage.textContent = "";
-
-  const username = signupUsername.value.trim();
-  const email = signupEmail.value.trim();
-  const password = signupPassword.value;
-
-  if (!username || !email || !password) {
-    signupMessage.textContent = "All fields are required.";
-    return;
-  }
+// Signup
+document.getElementById("signupBtn").onclick = async () => {
+  suMsg.textContent = "Signing up...";
 
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password
+    email: suEmail.value,
+    password: suPass.value
   });
 
   if (error) {
-    signupMessage.textContent = error.message;
+    suMsg.textContent = error.message;
     return;
   }
 
-  await supabase.from("users").insert([{
+  await supabase.from("users").insert({
     user_id: data.user.id,
-    username,
+    username: suUser.value,
     credits: 2,
     role: "user",
     banned: false
-  }]);
+  });
 
-  signupMessage.textContent = "Account created. You can now log in.";
-});
+  suMsg.textContent = "Account created. You can log in.";
+};
 
-// ===== LOGIN =====
-loginBtn.addEventListener("click", async () => {
-  loginMessage.textContent = "";
-
-  const email = loginEmail.value.trim();
-  const password = loginPassword.value;
-
-  if (!email || !password) {
-    loginMessage.textContent = "Email and password required.";
-    return;
-  }
+// Login
+document.getElementById("loginBtn").onclick = async () => {
+  liMsg.textContent = "Logging in...";
 
   const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password
+    email: liEmail.value,
+    password: liPass.value
   });
 
   if (error) {
-    loginMessage.textContent = "Invalid login credentials.";
+    liMsg.textContent = error.message;
     return;
   }
 
-  loginMessage.textContent = "Login successful!";
-  // later: redirect to dashboard / AI page
-});
+  liMsg.textContent = "Login successful!";
+};
