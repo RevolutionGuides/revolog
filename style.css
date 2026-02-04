@@ -1,73 +1,63 @@
-body {
-  font-family: system-ui, sans-serif;
-  background: linear-gradient(135deg, #1e2a38, #223f5a);
-  color: #e6e6e6;
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revolog AI Support</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-header {
-  text-align: center;
-  padding: 20px;
-}
+  <!-- =========================
+       HEADER
+       ========================= -->
+  <header>
+    <h1>Revolog AI Support</h1>
+    <p>Analyze Revolution Macro logs or ask questions</p>
+  </header>
 
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 5px;
-}
+  <!-- =========================
+       CONTAINER
+       ========================= -->
+  <div class="container">
 
-header p {
-  color: #b0b0b0;
-  margin: 0;
-}
+    <!-- =========================
+         AUTH CARD
+         ========================= -->
+    <div class="card" id="authCard">
+      <h2>Login / Signup</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="signupBtn">Sign Up</button>
+      <button id="loginBtn">Login</button>
+      <div id="authMessage"></div>
+    </div>
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 25px;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 0 10px;
-}
+    <!-- =========================
+         AI INPUT CARD
+         ========================= -->
+    <div class="card" id="aiCard" style="display:none;">
+      <h2>Ask AI / Upload Logs</h2>
+      <textarea id="logs" rows="8" placeholder="Paste logs here (optional)"></textarea>
+      <textarea id="context" rows="4" placeholder="Add context or ask a question"></textarea>
+      <button id="analyzeBtn">Send to AI</button>
+      <div id="output">AI responses will appear here</div>
+      <p id="creditsDisplay"></p>
+    </div>
 
-.card {
-  background-color: rgba(42, 47, 61, 0.9);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-}
+    <!-- =========================
+         ADMIN DASHBOARD
+         ========================= -->
+    <div class="card" id="adminCard" style="display:none;">
+      <h2>Admin Dashboard</h2>
+      <input type="text" id="searchUser" placeholder="Search username or email..." />
+      <button id="searchBtn">Search</button>
+      <div id="userList"></div>
+    </div>
 
-input, textarea {
-  width: 100%;
-  background-color: #252a38;
-  color: #e6e6e6;
-  border: 1px solid #3b4355;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-family: monospace;
-}
+  </div>
 
-button {
-  padding: 10px 20px;
-  background-color: #3a7ef0;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-button:hover {
-  background-color: #3164c9;
-  transform: scale(1.02);
-}
-
-#output {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #252a38;
-  border-radius: 8px;
-  min-height: 60px;
-  white-space: pre-wrap;
-}
+  <script type="module" src="main.js"></script>
+</body>
+</html>
