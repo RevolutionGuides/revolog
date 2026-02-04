@@ -1,12 +1,16 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+// 🔹 PLACEHOLDERS: replace these with your real project info
+const SUPABASE_URL = "YOUR_SUPABASE_URL_HERE";        // ← e.g., https://abcd1234.supabase.co
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";  // ← from Supabase → Settings → API → anon public
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+console.log("main.js loaded");
+
 let mode = "signup";
 
+// Elements
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const authBtn = document.getElementById("authBtn");
@@ -21,11 +25,12 @@ switchMode.addEventListener("click", (e) => {
   mode = mode === "signup" ? "login" : "signup";
   formTitle.textContent = mode === "signup" ? "Create account" : "Log in";
   authBtn.textContent = mode === "signup" ? "Sign up" : "Log in";
-  switchMode.textContent = mode === "signup" ? "Log in" : "Create account";
+  switchMode.textContent = mode === "signup" ? "Log in instead" : "Create account";
   authMessage.textContent = "";
+  authMessage.style.color = "#f87171";
 });
 
-// Show password
+// Show/hide password
 togglePassword.addEventListener("click", () => {
   password.type = password.type === "password" ? "text" : "password";
 });
@@ -56,8 +61,10 @@ authBtn.addEventListener("click", async () => {
   if (result.error) {
     authMessage.textContent = result.error.message;
   } else {
-    authMessage.style.color = "#16a34a";
-    authMessage.textContent = "Success! Redirecting...";
-    // later → redirect to app dashboard
+    authMessage.style.color = "#22c55e";
+    authMessage.textContent = "Success! Logged in.";
+    console.log("User:", result.data.user);
+
+    // NEXT: redirect to dashboard or load AI interface
   }
 });
