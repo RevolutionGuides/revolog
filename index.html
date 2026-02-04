@@ -1,92 +1,44 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revolog v4 – Revolution Macro AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <!-- ===== AUTH CARD ===== -->
+  <div class="card fade-in" id="authCard">
+    <h2>Login / Signup</h2>
+    <input type="text" id="username" placeholder="Username (display name)">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <div id="authMessage" class="auth-message"></div>
+    <div class="button-group">
+      <button id="signupBtn">Signup</button>
+      <button id="loginBtn">Login</button>
+    </div>
+  </div>
 
-let currentUser = null;
+  <!-- ===== AI CARD ===== -->
+  <div class="card fade-in" id="aiCard" style="display:none;">
+    <h2>AI Support – Revolution Macro</h2>
+    <textarea id="logs" rows="8" placeholder="Paste macro logs here..."></textarea>
+    <textarea id="context" rows="4" placeholder="Provide additional context or questions..."></textarea>
+    <div id="creditsDisplay" class="credits-display"></div>
+    <button id="analyzeBtn">Analyze / Ask AI</button>
+    <div id="output" class="output"></div>
+  </div>
 
-// Elements
-const authCard = document.getElementById("authCard");
-const aiCard = document.getElementById("aiCard");
-const adminCard = document.getElementById("adminCard");
-const usernameInput = document.getElementById("username");
-const emailInput = document.getElementById("email");
-const signupBtn = document.getElementById("signupBtn");
-const loginBtn = document.getElementById("loginBtn");
-const authMessage = document.getElementById("authMessage");
-const analyzeBtn = document.getElementById("analyzeBtn");
-const logsInput = document.getElementById("logs");
-const contextInput = document.getElementById("context");
-const outputDiv = document.getElementById("output");
-const creditsDisplay = document.getElementById("creditsDisplay");
+  <!-- ===== ADMIN CARD ===== -->
+  <div class="card fade-in" id="adminCard" style="display:none;">
+    <h2>Admin Dashboard</h2>
+    <input type="text" id="searchUsername" placeholder="Search username">
+    <button id="searchUserBtn">Search</button>
+    <div id="adminOutput"></div>
+  </div>
 
-// --- Signup ---
-signupBtn.addEventListener("click", async () => {
-  const username = usernameInput.value.trim();
-  const email = emailInput.value.trim();
-  if (!username) return authMessage.textContent = "Username required";
-  
-  const { data, error } = await supabase.from("users").insert([{ 
-    id: username, 
-    username, 
-    email: email || null, 
-    role: "user", 
-    credits: 2, 
-    banned: false 
-  }]);
-  
-  if (error) authMessage.textContent = error.message;
-  else authMessage.textContent = "Signup successful. Please login.";
-});
-
-// --- Login ---
-loginBtn.addEventListener("click", async () => {
-  const username = usernameInput.value.trim();
-  const { data: user, error } = await supabase.from("users").select("*").eq("id", username).single();
-  
-  if (error || !user) authMessage.textContent = "User not found";
-  else {
-    currentUser = user;
-    authCard.style.display = "none";
-    aiCard.style.display = "block";
-    if (user.role === "admin") adminCard.style.display = "block";
-    updateCredits();
-  }
-});
-
-function updateCredits() {
-  if (!currentUser) return;
-  creditsDisplay.textContent = `Credits: ${currentUser.credits}`;
-}
-
-// --- AI Request ---
-analyzeBtn.addEventListener("click", async () => {
-  if (!currentUser) return outputDiv.textContent = "Login required";
-  const logs = logsInput.value;
-  const context = contextInput.value;
-  
-  outputDiv.textContent = "Processing...";
-
-  try {
-    const response = await fetch("https://YOUR_SUPABASE_FUNCTION_URL/ai-analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: currentUser.id,
-        logs,
-        context,
-        question: context
-      })
-    });
-    const data = await response.json();
-    if (data.error) outputDiv.textContent = "Error: " + data.error;
-    else {
-      outputDiv.textContent = data.result;
-      currentUser.credits -= 2; // deduct credits locally for UI
-      updateCredits();
-    }
-  } catch (err) {
-    outputDiv.textContent = "Request failed: " + err.message;
-  }
-});
+  <script type="module" src="main.js"></script>
+</body>
+</html>
