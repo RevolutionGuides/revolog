@@ -3,7 +3,7 @@
 
 let rulesData = null;
 
-// 1️⃣ Load rules.json on page load
+// Load rules.json on page load
 fetch('rules.json')
   .then(response => response.json())
   .then(data => {
@@ -16,7 +16,7 @@ fetch('rules.json')
       'ERROR: Failed to load rules.json. Check your file.';
   });
 
-// 2️⃣ Listen for Analyze button
+// Listen for Analyze button
 document.getElementById("analyzeBtn").addEventListener("click", () => {
   const logs = document.getElementById("logs").value.trim();
   const contextText = document.getElementById("context").value.trim();
@@ -28,7 +28,6 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
   }
 
   // Convert context textarea into key-value pairs
-  // Expected format: each line "key: value"
   const context = {};
   contextText.split('\n').forEach(line => {
     const [key, ...rest] = line.split(':');
@@ -37,7 +36,7 @@ document.getElementById("analyzeBtn").addEventListener("click", () => {
     }
   });
 
-  // 3️⃣ Check global requirements
+  // Check global requirements
   if (logs.length === 0) {
     output.textContent =
 `STATUS: Insufficient Data
@@ -48,20 +47,15 @@ REASON:
     return;
   }
 
-  // Keep track of output lines
   let results = [];
-
-  // Split logs into array of lines
   const logLines = logs.split('\n');
 
-  // 4️⃣ Loop through each rule
+  // Loop through each rule
   rulesData.rules.forEach(rule => {
-    // Check required context for this rule
     const missingContext = (rule.requires.context_fields || [])
       .filter(field => !context[field] || context[field] === '');
 
     if (missingContext.length > 0) {
-      // Not enough data to apply this rule
       results.push(
 `STATUS: Insufficient Data
 RULE: ${rule.id}
@@ -70,21 +64,25 @@ MISSING DATA:
 REASON:
 - Rule ${rule.id} requires: ${missingContext.join(', ')}`
       );
-      return; // Skip to next rule
+      return;
     }
 
-    // Check each log line for matches
+    // Check log matches
     const matchedLines = logLines.filter(line =>
       (rule.matches.log_contains || []).some(pattern => line.includes(pattern))
     );
 
     if (matchedLines.length > 0) {
-      // Rule matched
+      // Determine status class for color
+      let statusClass = 'status-confirmed';
+      if (rule.severity === 'error') statusClass = 'status-error';
+      else if (rule.severity === 'warning') statusClass = 'status-warning';
+
       results.push(
-`STATUS: Confirmed Issue
+`STATUS: <span class="${statusClass}">${rule.severity.toUpperCase()}</span>
 RULE: ${rule.id}
 EVIDENCE:
-- ${matchedLines.map(l => l).join('\n- ')}
+- ${matchedLines.join('\n- ')}
 CONCLUSION:
 - ${rule.conclusion.summary}
 - Action: ${rule.conclusion.allowed_actions.join('; ')}
@@ -94,7 +92,6 @@ MISSING DATA:
     }
   });
 
-  // If no rules matched and no missing context, output "No issues detected"
   if (results.length === 0) {
     output.textContent =
 `STATUS: No Issues Detected
@@ -102,6 +99,8 @@ REASON:
 - None of the rules matched the provided logs
 - All required context fields were present`;
   } else {
-    output.textContent = results.join('\n\n'); // separate multiple rule results
+    // Allow HTML for colored STATUS
+    output.innerHTML = results.join('\n\n');
   }
 });
+
