@@ -8,59 +8,64 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <h1>Revolog v4</h1>
-    <p>Deterministic log analyzer for Revolution Macro – Bee Swarm Simulator</p>
-  </header>
+<!-- Loading Screen -->
+<div id="loadingScreen">
+  <div class="loader-text">Revolog is loading...</div>
+</div>
 
-  <!-- Music Toggle -->
-  <div id="musicControls">
-    <button id="musicToggle">🎵 Toggle Music</button>
+<!-- Header -->
+<header>
+  <h1 class="fade-in">Revolog v4</h1>
+  <p class="fade-in">Deterministic log analyzer for Revolution Macro – Bee Swarm Simulator</p>
+</header>
+
+<!-- Music Toggle -->
+<div id="musicControls">
+  <button id="musicToggle">🎵 Toggle Music</button>
+</div>
+
+<!-- Balloon Counter -->
+<div id="balloonCounter">Balloons Popped: 0</div>
+
+<!-- Main Container -->
+<div class="container fade-in">
+  <!-- Inputs Card -->
+  <div class="card fade-in">
+    <h2>Logs</h2>
+    <textarea id="logs" rows="10" placeholder="Paste Revolution Macro logs here..."></textarea>
+
+    <h2>Context</h2>
+    <textarea id="context" rows="5" placeholder="Environment, software, version, notes..."></textarea>
+
+    <button id="analyzeBtn">Analyze Logs</button>
   </div>
 
-  <!-- Balloon Counter -->
-  <div id="balloonCounter">Balloons Popped: 0</div>
-
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Inputs Card -->
-    <div class="card">
-      <h2>Logs</h2>
-      <textarea id="logs" rows="10" placeholder="Paste Revolution Macro logs here..."></textarea>
-
-      <h2>Context</h2>
-      <textarea id="context" rows="5" placeholder="Environment, software, version, notes..."></textarea>
-
-      <button id="analyzeBtn">Analyze Logs</button>
-    </div>
-
-    <!-- Output Card -->
-    <div class="card" id="outputContainer">
-      <h2>Analysis Output</h2>
-      <div id="output">Waiting for analysis...</div>
-    </div>
+  <!-- Output Card -->
+  <div class="card fade-in" id="outputContainer">
+    <h2>Analysis Output</h2>
+    <div id="output">Waiting for analysis...</div>
   </div>
+</div>
 
-  <!-- Dashboard Modal -->
-  <div id="dashboardModal">
-    <div class="dashboard-content">
-      <h2>Dev Dashboard – Edit Rules</h2>
-      <textarea id="dashboardRules" rows="15" placeholder="Edit rules here..."></textarea>
-      <br>
-      <button id="saveRulesBtn">Save Rules</button>
-      <button id="closeDashboardBtn">Close</button>
-    </div>
+<!-- Dashboard Modal -->
+<div id="dashboardModal">
+  <div class="dashboard-content">
+    <h2>Dev Dashboard – Edit Rules</h2>
+    <textarea id="dashboardRules" rows="15" placeholder="Edit rules here..."></textarea>
+    <br>
+    <button id="saveRulesBtn">Save Rules</button>
+    <button id="closeDashboardBtn">Close</button>
   </div>
+</div>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" loop autoplay>
-    <source src="background.mp3" type="audio/mpeg">
-  </audio>
+<!-- Background Music -->
+<audio id="bgMusic" loop autoplay>
+  <source src="background.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- Floating Balloons Container -->
-  <div id="balloonContainer"></div>
+<!-- Floating Balloons Container -->
+<div id="balloonContainer"></div>
 
-  <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
