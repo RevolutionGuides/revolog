@@ -4,36 +4,40 @@ body {
   background-color: #0f1115;
   color: #e6e6e6;
   margin: 0;
-  padding: 40px;
+  padding: 0;
 }
 
-/* --- Headers --- */
-h1 {
-  font-size: 2rem;
-  border-bottom: 2px solid #2a2f45;
-  padding-bottom: 5px;
-  margin-bottom: 0.5em;
+header {
+  text-align: center;
+  padding: 20px;
 }
 
-p {
-  color: #a0a0a0;
-  margin-top: 0;
+h1 { font-size: 2.5rem; margin: 0; }
+p { color: #a0a0a0; margin-top: 5px; }
+
+/* --- Grid layout --- */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
 }
 
-/* --- Sections --- */
-section {
-  margin-bottom: 30px;
-  padding: 15px;
-  border: 1px solid #2a2f45;
-  border-radius: 8px;
+@media (max-width: 900px) {
+  .container { grid-template-columns: 1fr; }
+}
+
+/* --- Cards --- */
+.card {
   background-color: #12151d;
-  box-shadow: 0 0 10px #0b0c10 inset;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000 inset;
 }
 
 /* --- Textareas --- */
 textarea {
   width: 100%;
-  max-width: 900px;
   background-color: #151822;
   color: #e6e6e6;
   border: 1px solid #2a2f45;
@@ -41,45 +45,54 @@ textarea {
   padding: 12px;
   font-family: monospace;
   resize: vertical;
-  box-shadow: inset 0 0 8px #111;
+  margin-bottom: 15px;
 }
 
 /* --- Buttons --- */
 button {
-  margin-top: 10px;
   padding: 10px 20px;
   background-color: #2f6fed;
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
 }
 
-button:hover {
-  background-color: #255ad1;
-  transform: scale(1.03);
-}
+button:hover { background-color: #255ad1; transform: scale(1.03); }
 
-/* --- Output --- */
-pre {
-  margin-top: 15px;
-  max-width: 900px;
+/* --- Output boxes --- */
+.output-item {
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
   background-color: #151822;
-  border: 1px solid #2a2f45;
-  border-radius: 6px;
-  padding: 15px;
-  white-space: pre-wrap;
-  box-shadow: inset 0 0 10px #111;
+  border-left: 5px solid;
 }
 
-/* STATUS colors */
-span.status-error { color: #ff6b6b; font-weight: bold; }
-span.status-warning { color: #f1c40f; font-weight: bold; }
-span.status-confirmed { color: #2ecc71; font-weight: bold; }
+.status-error { border-color: #ff6b6b; }
+.status-warning { border-color: #f1c40f; }
+.status-confirmed { border-color: #2ecc71; }
 
-/* --- Dashboard --- */
-#dashboard {
-  display: none; /* hidden by default */
+/* --- Dashboard Modal --- */
+#dashboardModal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
+
+.dashboard-content {
+  background-color: #12151d;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 700px;
+  box-shadow: 0 0 20px #000;
+}
+
+#dashboardRules { margin-bottom: 15px; }
