@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "1.0",
+    "version": "1.1",
     "engine": "revolog-v4",
-    "description": "Test rules for Revolog v4"
+    "description": "Realistic test rules for Revolog v4"
   },
   "global_requirements": {
     "required_context_fields": ["environment", "software", "version"],
@@ -24,6 +24,42 @@
       "requires": { "context_fields": ["software"] },
       "evidence": { "must_reference_log": true },
       "conclusion": { "type": "confirmed_issue", "summary": "Generic warning detected", "allowed_actions": ["Investigate warning"] }
+    },
+    {
+      "id": "TEST_CONNECTION_ERROR",
+      "severity": "error",
+      "matches": { "log_contains": ["Connection refused", "Failed to connect"] },
+      "requires": { "context_fields": ["environment", "software"] },
+      "evidence": { "must_reference_log": true },
+      "conclusion": {
+        "type": "confirmed_issue",
+        "summary": "Connection error detected",
+        "allowed_actions": ["Check network connection", "Verify service is running"]
+      }
+    },
+    {
+      "id": "TEST_MEMORY_WARNING",
+      "severity": "warning",
+      "matches": { "log_contains": ["OutOfMemory", "Memory limit exceeded"] },
+      "requires": { "context_fields": ["software", "version"] },
+      "evidence": { "must_reference_log": true },
+      "conclusion": {
+        "type": "confirmed_issue",
+        "summary": "Memory usage warning",
+        "allowed_actions": ["Check memory usage", "Optimize application or increase limits"]
+      }
+    },
+    {
+      "id": "TEST_DISK_WARNING",
+      "severity": "warning",
+      "matches": { "log_contains": ["Disk full", "No space left"] },
+      "requires": { "context_fields": ["environment"] },
+      "evidence": { "must_reference_log": true },
+      "conclusion": {
+        "type": "confirmed_issue",
+        "summary": "Disk space warning",
+        "allowed_actions": ["Clean up disk space", "Add more storage"]
+      }
     }
   ]
 }
