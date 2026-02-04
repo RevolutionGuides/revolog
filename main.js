@@ -1,8 +1,8 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 // 🔹 PLACEHOLDERS: replace these with your real project info
-const SUPABASE_URL = "YOUR_SUPABASE_URL_HERE";        // ← e.g., https://abcd1234.supabase.co
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";  // ← from Supabase → Settings → API → anon public
+const SUPABASE_URL = "https://lqpytcltzvxgmlnnhhvv.supabase.co";       
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxxcHl0Y2x0enZ4Z21sbm5oaHZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMjc4NTgsImV4cCI6MjA4NTgwMzg1OH0.MYdpZQaWodTn8Fe-DlJJognYR7UC-XBdmmngmLsK1rY";  // ← from Supabase → Settings → API → anon public
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
