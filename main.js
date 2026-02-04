@@ -12,6 +12,7 @@ const aiCard = document.getElementById("aiCard");
 const adminCard = document.getElementById("adminCard");
 const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 const signupBtn = document.getElementById("signupBtn");
 const loginBtn = document.getElementById("loginBtn");
 const authMessage = document.getElementById("authMessage");
@@ -21,32 +22,67 @@ const contextInput = document.getElementById("context");
 const outputDiv = document.getElementById("output");
 const creditsDisplay = document.getElementById("creditsDisplay");
 
-// --- Signup ---
+const searchUserInput = document.getElementById("searchUser");
+const searchBtn = document.getElementById("searchBtn");
+const userListDiv = document.getElementById("userList");
+
+// -----------------------
+// SIGNUP
 signupBtn.addEventListener("click", async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
-  if (!username) return authMessage.textContent = "Username required";
-  
-  const { data, error } = await supabase.from("users").insert([{ 
-    id: username, 
-    username, 
-    email: email || null, 
-    role: "user", 
-    credits: 2, 
-    banned: false 
-  }]);
-  
+  const password = passwordInput.value;
+
+  if (!username || !email || !password) {
+    authMessage.textContent = "Username, email, and password are required";
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
   if (error) authMessage.textContent = error.message;
-  else authMessage.textContent = "Signup successful. Please login.";
+  else {
+    // Insert extra user info in "users" table
+    await supabase.from("users").insert([{
+      user_id: data.user.id,
+      username,
+      credits: 2,
+      role: "user",
+      banned: false
+    }]);
+    authMessage.textContent = "Signup successful. Please login.";
+  }
 });
 
-// --- Login ---
+// -----------------------
+// LOGIN
 loginBtn.addEventListener("click", async () => {
-  const username = usernameInput.value.trim();
-  const { data: user, error } = await supabase.from("users").select("*").eq("id", username).single();
-  
-  if (error || !user) authMessage.textContent = "User not found";
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email || !password) {
+    authMessage.textContent = "Email and password required";
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) authMessage.textContent = error.message;
   else {
+    const user_id = data.user.id;
+    const { data: user } = await supabase.from("users").select("*").eq("user_id", user_id).single();
+
+    if (user.banned) {
+      authMessage.textContent = "You are banned";
+      return;
+    }
+
     currentUser = user;
     authCard.style.display = "none";
     aiCard.style.display = "block";
@@ -55,17 +91,21 @@ loginBtn.addEventListener("click", async () => {
   }
 });
 
+// -----------------------
+// UPDATE CREDITS DISPLAY
 function updateCredits() {
   if (!currentUser) return;
   creditsDisplay.textContent = `Credits: ${currentUser.credits}`;
 }
 
-// --- AI Request ---
+// -----------------------
+// AI REQUEST
 analyzeBtn.addEventListener("click", async () => {
   if (!currentUser) return outputDiv.textContent = "Login required";
+
   const logs = logsInput.value;
   const context = contextInput.value;
-  
+
   outputDiv.textContent = "Processing...";
 
   try {
@@ -73,20 +113,39 @@ analyzeBtn.addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        user_id: currentUser.id,
+        user_id: currentUser.user_id,
         logs,
         context,
         question: context
       })
     });
+
     const data = await response.json();
     if (data.error) outputDiv.textContent = "Error: " + data.error;
     else {
       outputDiv.textContent = data.result;
-      currentUser.credits -= 2; // deduct credits locally for UI
+      currentUser.credits -= 2; // Deduct locally for UI
       updateCredits();
     }
   } catch (err) {
     outputDiv.textContent = "Request failed: " + err.message;
   }
+});
+
+// -----------------------
+// ADMIN DASHBOARD (search users)
+searchBtn.addEventListener("click", async () => {
+  const query = searchUserInput.value.trim();
+  if (!query) return;
+
+  const { data: users } = await supabase.from("users")
+    .select("*")
+    .or(`username.ilike.%${query}%,email.ilike.%${query}%`);
+
+  userListDiv.innerHTML = "";
+  users.forEach(u => {
+    const div = document.createElement("div");
+    div.textContent = `${u.username} | ${u.email || ""} | Credits: ${u.credits} | Role: ${u.role} | Banned: ${u.banned}`;
+    userListDiv.appendChild(div);
+  });
 });
