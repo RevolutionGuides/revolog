@@ -1,91 +1,73 @@
-/* General Body & Gradient */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #1b2330, #1e2a40);
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #1e2a38, #223f5a);
   color: #e6e6e6;
   margin: 0;
   padding: 0;
 }
 
-/* Header */
-header { text-align: center; padding: 20px; }
-header h1 { font-size: 2.2rem; margin: 0; }
-header p { font-size: 0.95rem; color: #b0b0b0; margin: 5px 0; }
+header {
+  text-align: center;
+  padding: 20px;
+}
 
-/* Container */
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #b0b0b0;
+  margin: 0;
+}
+
 .container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 25px;
-  padding: 25px;
-  max-width: 1000px;
-  margin: auto;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 10px;
 }
 
-/* Cards */
 .card {
-  background-color: #2a2f3d;
-  padding: 25px;
+  background-color: rgba(42, 47, 61, 0.9);
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.35);
-  transition: transform 0.2s;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
-.card:hover { transform: scale(1.01); }
 
-/* Inputs and Textareas */
 input, textarea {
   width: 100%;
   background-color: #252a38;
   color: #e6e6e6;
-  border-radius: 8px;
   border: 1px solid #3b4355;
-  padding: 12px;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
   font-family: monospace;
-  margin-bottom: 12px;
 }
 
-/* Buttons */
 button {
   padding: 10px 20px;
-  border-radius: 8px;
   background-color: #3a7ef0;
   color: white;
   border: none;
-  font-weight: 500;
-  cursor: pointer;
-}
-button:hover { background-color: #3164c9; }
-
-/* Admin Dashboard Modal */
-#dashboardModal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(30,34,43,0.95);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.dashboard-content {
-  background-color: #2a2f3d;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
-}
-
-/* User Cards in Dashboard */
-.userCard {
-  background-color: #252a38;
-  padding: 12px;
-  margin-bottom: 10px;
   border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  cursor: pointer;
+  margin-right: 5px;
 }
-.userCard button {
-  margin-left: 5px;
+
+button:hover {
+  background-color: #3164c9;
+  transform: scale(1.02);
+}
+
+#output {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #252a38;
+  border-radius: 8px;
+  min-height: 60px;
+  white-space: pre-wrap;
 }
