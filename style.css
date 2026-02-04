@@ -1,63 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revolog AI Support</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* ===== GENERAL ===== */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #1e222b, #2a2f3d);
+  color: #e6e6e6;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
-  <!-- =========================
-       HEADER
-       ========================= -->
-  <header>
-    <h1>Revolog AI Support</h1>
-    <p>Analyze Revolution Macro logs or ask questions</p>
-  </header>
+/* ===== CARDS ===== */
+.card {
+  background-color: rgba(42, 47, 61, 0.95);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  margin: 20px 0;
+  width: 90%;
+  max-width: 600px;
+}
 
-  <!-- =========================
-       CONTAINER
-       ========================= -->
-  <div class="container">
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #3b4355;
+  background-color: #252a38;
+  color: #e6e6e6;
+}
 
-    <!-- =========================
-         AUTH CARD
-         ========================= -->
-    <div class="card" id="authCard">
-      <h2>Login / Signup</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button id="signupBtn">Sign Up</button>
-      <button id="loginBtn">Login</button>
-      <div id="authMessage"></div>
-    </div>
+button {
+  padding: 12px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3a7ef0;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
-    <!-- =========================
-         AI INPUT CARD
-         ========================= -->
-    <div class="card" id="aiCard" style="display:none;">
-      <h2>Ask AI / Upload Logs</h2>
-      <textarea id="logs" rows="8" placeholder="Paste logs here (optional)"></textarea>
-      <textarea id="context" rows="4" placeholder="Add context or ask a question"></textarea>
-      <button id="analyzeBtn">Send to AI</button>
-      <div id="output">AI responses will appear here</div>
-      <p id="creditsDisplay"></p>
-    </div>
+button:hover { background-color: #3164c9; transform: scale(1.03); }
 
-    <!-- =========================
-         ADMIN DASHBOARD
-         ========================= -->
-    <div class="card" id="adminCard" style="display:none;">
-      <h2>Admin Dashboard</h2>
-      <input type="text" id="searchUser" placeholder="Search username or email..." />
-      <button id="searchBtn">Search</button>
-      <div id="userList"></div>
-    </div>
+.output, .credits-display, .auth-message, #adminOutput {
+  background-color: #252a38;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  min-height: 40px;
+}
 
-  </div>
+/* ===== FADE-IN ===== */
+.fade-in { animation: fadeIn 0.8s ease forwards; opacity: 0; }
+@keyframes fadeIn { to { opacity: 1; } }
 
-  <script type="module" src="main.js"></script>
-</body>
-</html>
+.button-group { display: flex; justify-content: space-between; }
