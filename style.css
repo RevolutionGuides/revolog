@@ -1,3 +1,4 @@
+/* General page */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background-color: #0f1115;
@@ -6,9 +7,12 @@ body {
   padding: 40px;
 }
 
+/* Headers */
 h1 {
   font-size: 2rem;
   margin-bottom: 0.2em;
+  border-bottom: 2px solid #2a2f45;
+  padding-bottom: 5px;
 }
 
 p {
@@ -16,11 +20,13 @@ p {
   margin-top: 0;
 }
 
+/* Sections */
 h2 {
   margin-top: 30px;
   font-size: 1.1rem;
 }
 
+/* Textareas */
 textarea {
   width: 100%;
   max-width: 900px;
@@ -31,8 +37,10 @@ textarea {
   padding: 12px;
   font-family: monospace;
   resize: vertical;
+  box-shadow: inset 0 0 8px #111;
 }
 
+/* Button */
 button {
   margin-top: 20px;
   padding: 10px 20px;
@@ -42,12 +50,15 @@ button {
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 button:hover {
   background-color: #255ad1;
+  transform: scale(1.03);
 }
 
+/* Output box */
 pre {
   margin-top: 15px;
   max-width: 900px;
@@ -56,4 +67,31 @@ pre {
   border-radius: 6px;
   padding: 15px;
   white-space: pre-wrap;
+  box-shadow: inset 0 0 10px #111;
+}
+
+/* STATUS colors */
+pre span.status-error {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+pre span.status-warning {
+  color: #f1c40f;
+  font-weight: bold;
+}
+
+pre span.status-confirmed {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+/* Section boxes (optional, to separate Logs, Context, Output) */
+section {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #2a2f45;
+  border-radius: 8px;
+  background-color: #12151d;
+  box-shadow: 0 0 10px #0b0c10 inset;
 }
