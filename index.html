@@ -2,47 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Revolog – Access</title>
+  <title>Revolog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div class="auth-wrapper">
+  <div class="auth-card">
 
-  <!-- SIGNUP -->
-  <div class="card">
-    <h2>Create account</h2>
+    <h1 id="formTitle">Create account</h1>
 
-    <input id="su-username" placeholder="Username" />
-    <input id="su-email" type="email" placeholder="Email" />
-
-    <div class="password-field">
-      <input id="su-password" type="password" placeholder="Password" />
-      <button class="eye" data-target="su-password">👁</button>
+    <input type="email" id="email" placeholder="Email" />
+    
+    <div class="password-wrapper">
+      <input type="password" id="password" placeholder="Password" />
+      <span id="togglePassword">👁</span>
     </div>
 
-    <button id="signupBtn">Sign up</button>
-    <p id="signupMsg" class="msg"></p>
+    <button id="authBtn">Sign up</button>
+
+    <p class="switch-text">
+      <span id="switchText">Already have an account?</span>
+      <a href="#" id="switchMode">Log in</a>
+    </p>
+
+    <p id="authMessage"></p>
+
   </div>
-
-  <!-- LOGIN -->
-  <div class="card small">
-    <h3>Already have an account?</h3>
-
-    <input id="li-email" type="email" placeholder="Email" />
-
-    <div class="password-field">
-      <input id="li-password" type="password" placeholder="Password" />
-      <button class="eye" data-target="li-password">👁</button>
-    </div>
-
-    <button id="loginBtn">Log in</button>
-    <p id="loginMsg" class="msg"></p>
-  </div>
-
 </div>
 
-<script type="module" src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
