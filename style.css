@@ -1,6 +1,59 @@
-<head>
-  <meta charset="UTF-8">
-  <title>Strict Log Analyzer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-</head>
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #0f1115;
+  color: #e6e6e6;
+  margin: 0;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2em;
+}
+
+p {
+  color: #a0a0a0;
+  margin-top: 0;
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: 1.1rem;
+}
+
+textarea {
+  width: 100%;
+  max-width: 900px;
+  background-color: #151822;
+  color: #e6e6e6;
+  border: 1px solid #2a2f45;
+  border-radius: 6px;
+  padding: 12px;
+  font-family: monospace;
+  resize: vertical;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2f6fed;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #255ad1;
+}
+
+pre {
+  margin-top: 15px;
+  max-width: 900px;
+  background-color: #151822;
+  border: 1px solid #2a2f45;
+  border-radius: 6px;
+  padding: 15px;
+  white-space: pre-wrap;
+}
