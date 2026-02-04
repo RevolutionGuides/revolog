@@ -8,38 +8,43 @@
 </head>
 
 <body>
-  <h1>Revolog</h1>
-  <p>Deterministic, rule-based log analysis. No guessing.</p>
+  <header>
+    <h1>Revolog</h1>
+    <p>Deterministic, rule-based log analysis. No guessing.</p>
+  </header>
 
-  <!-- User Input Sections -->
-  <section>
-    <h2>Logs</h2>
-    <textarea id="logs" rows="10" placeholder="Paste logs here..."></textarea>
-  </section>
+  <main class="container">
+    <!-- Input Section -->
+    <section class="card input-section">
+      <h2>Logs</h2>
+      <textarea id="logs" rows="10" placeholder="Paste logs here..."></textarea>
 
-  <section>
-    <h2>Context</h2>
-    <textarea id="context" rows="5" placeholder="environment: Linux&#10;software: WebApp&#10;version: 1.0"></textarea>
-  </section>
+      <h2>Context</h2>
+      <textarea id="context" rows="5" placeholder="environment: Linux&#10;software: WebApp&#10;version: 1.0"></textarea>
 
-  <section>
-    <button id="analyzeBtn">Analyze</button>
-  </section>
+      <button id="analyzeBtn">Analyze</button>
+    </section>
 
-  <section>
-    <h2>Output</h2>
-    <pre id="output">Waiting for analysis.</pre>
-  </section>
+    <!-- Output Section -->
+    <section class="card output-section">
+      <h2>Output</h2>
+      <div id="output">Waiting for analysis.</div>
+    </section>
+  </main>
 
-  <!-- Dev-only dashboard (hidden by default, toggle with password) -->
-  <section id="dashboard">
-    <h2>Dev Dashboard</h2>
-    <p>Rules management (private)</p>
-    <textarea id="dashboardRules" rows="15" placeholder="Edit rules.json here"></textarea>
-    <button id="saveRulesBtn">Save Rules</button>
-    <p id="dashboardStatus"></p>
-  </section>
+  <!-- Dev Dashboard Modal -->
+  <div id="dashboardModal">
+    <div class="dashboard-content">
+      <h2>Dev Dashboard</h2>
+      <p>Edit rules.json (private)</p>
+      <textarea id="dashboardRules" rows="15" placeholder="Edit rules here"></textarea>
+      <button id="saveRulesBtn">Save Rules</button>
+      <p id="dashboardStatus"></p>
+      <button id="closeDashboard">Close Dashboard</button>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 </body>
 </html>
+
