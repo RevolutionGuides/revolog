@@ -5,122 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Revolog v4 – Revolution Macro Analyzer</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Favicon (optional) -->
-  <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
 <body>
 
-  <!-- =========================
-       LOADING SCREEN
-       ========================= -->
-  <div id="loadingScreen">
-    <div class="loader-text">Revolog is loading...</div>
-  </div>
-
-  <!-- =========================
-       HEADER
-       ========================= -->
+  <!-- Header -->
   <header class="fade-in">
     <h1>Revolog v4</h1>
-    <p>Deterministic log analyzer for Revolution Macro – Bee Swarm Simulator</p>
-    <p class="sub-header">Analyze logs, review context, and get actionable fixes instantly.</p>
+    <p>Deterministic log analyzer & AI support for Revolution Macro</p>
   </header>
 
-  <!-- =========================
-       MUSIC CONTROLS
-       ========================= -->
-  <div id="musicControls" class="fade-in">
-    <button id="musicToggle">🎵 Toggle Music</button>
+  <!-- Auth Section -->
+  <div class="container fade-in" id="authContainer">
+    <div class="card">
+      <h2>Login / Register</h2>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <button id="registerBtn">Register</button>
+      <p id="authMsg"></p>
+    </div>
   </div>
 
-  <!-- =========================
-       BALLOON COUNTER
-       ========================= -->
-  <div id="balloonCounter" class="fade-in">Balloons Popped: 0</div>
-
-  <!-- =========================
-       MAIN GRID CONTAINER
-       ========================= -->
-  <div class="container fade-in">
-
-    <!-- -------------------------
-         INPUT CARD
-         ------------------------- -->
+  <!-- Main container (hidden until login) -->
+  <div class="container fade-in" id="mainContainer" style="display:none;">
+    <!-- Input Card -->
     <div class="card fade-in">
       <h2>Logs Input</h2>
-      <textarea id="logs" rows="12" placeholder="Paste Revolution Macro logs here..."></textarea>
+      <textarea id="logs" rows="10" placeholder="Paste Revolution Macro logs here..."></textarea>
 
-      <h2>Context / Notes</h2>
-      <textarea id="context" rows="6" placeholder="Environment, macro version, user notes..."></textarea>
+      <h2>Custom Context / Question</h2>
+      <textarea id="context" rows="6" placeholder="Explain problem or environment..."></textarea>
 
-      <button id="analyzeBtn">Analyze Logs</button>
+      <button id="analyzeBtn">Analyze Logs / Ask AI</button>
     </div>
 
-    <!-- -------------------------
-         OUTPUT CARD
-         ------------------------- -->
+    <!-- Output Card -->
     <div class="card fade-in" id="outputContainer">
       <h2>Analysis Output</h2>
       <div id="output">Waiting for analysis...</div>
     </div>
-
   </div>
 
-  <!-- =========================
-       DASHBOARD MODAL
-       ========================= -->
+  <!-- Admin Dashboard Modal -->
   <div id="dashboardModal">
     <div class="dashboard-content fade-in">
-      <h2>Dev Dashboard – Edit Rules</h2>
-      <p>Edit the rules.json live. All changes will be saved locally and used for analysis immediately.</p>
-      <textarea id="dashboardRules" rows="15" placeholder="Edit rules here..."></textarea>
+      <h2>Admin Dashboard</h2>
+      <input type="text" id="searchUser" placeholder="Search username">
+      <textarea id="dashboardUsers" rows="8" placeholder="User info appears here"></textarea>
       <br>
-      <button id="saveRulesBtn">💾 Save Rules</button>
-      <button id="closeDashboardBtn">❌ Close</button>
+      <button id="grantCreditsBtn">Grant Credits</button>
+      <button id="banUserBtn">Ban User</button>
+      <button id="removeUserBtn">Remove User</button>
+      <button id="closeDashboardBtn">Close</button>
     </div>
   </div>
 
-  <!-- =========================
-       BACKGROUND MUSIC
-       ========================= -->
-  <audio id="bgMusic" loop autoplay>
-    <source src="assets/background.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- =========================
-       BALLOON CONTAINER
-       ========================= -->
-  <div id="balloonContainer"></div>
-
-  <!-- =========================
-       FOOTER / INFO
-       ========================= -->
-  <footer class="fade-in">
-    <p>Revolog v4 – Lead support staff tool for Revolution Macro</p>
-    <p>All features fully functional on GitHub Pages – no server required</p>
-  </footer>
-
-  <!-- =========================
-       SCRIPTS
-       ========================= -->
   <script src="main.js"></script>
-
-  <!-- =========================
-       OPTIONAL: SHORTCUTS INFO
-       ========================= -->
-  <script>
-    // Ctrl+Shift+D opens the dashboard
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') {
-        const password = prompt("Enter dashboard password:");
-        if (password === "revolog123") { // Example password
-          document.getElementById('dashboardModal').style.display = 'flex';
-        } else {
-          alert("Incorrect password!");
-        }
-      }
-    });
-  </script>
-
 </body>
 </html>
