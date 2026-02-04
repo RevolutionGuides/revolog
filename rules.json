@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "version": "1.0",
+    "engine": "strict-log-analyzer",
+    "description": "Test rules for initial engine"
+  },
+  "global_requirements": {
+    "required_context_fields": ["environment", "software", "version"],
+    "minimum_log_lines": 1
+  },
+  "rules": [
+    {
+      "id": "TEST_ERROR_1",
+      "severity": "error",
+      "matches": {
+        "log_contains": ["ERROR"]
+      },
+      "requires": {
+        "context_fields": ["environment"]
+      },
+      "evidence": {
+        "must_reference_log": true
+      },
+      "conclusion": {
+        "type": "confirmed_issue",
+        "summary": "A generic error was detected",
+        "allowed_actions": [
+          "Check the error log"
+        ]
+      }
+    },
+    {
+      "id": "TEST_WARNING_1",
+      "severity": "warning",
+      "matches": {
+        "log_contains": ["WARN"]
+      },
+      "requires": {
+        "context_fields": ["software"]
+      },
+      "evidence": {
+        "must_reference_log": true
+      },
+      "conclusion": {
+        "type": "confirmed_issue",
+        "summary": "A warning was detected",
+        "allowed_actions": [
+          "Investigate the warning"
+        ]
+      }
+    }
+  ]
+}
