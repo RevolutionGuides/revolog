@@ -3,48 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Revolog – Account Access</title>
+  <title>Revolog – Access</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="auth-wrapper">
+<div class="auth-wrapper">
 
-    <!-- ===== SIGNUP CARD ===== -->
-    <div class="card signup-card">
-      <h2>Create Account</h2>
+  <!-- SIGNUP -->
+  <div class="card">
+    <h2>Create account</h2>
 
-      <input type="text" id="signupUsername" placeholder="Username" />
-      <input type="email" id="signupEmail" placeholder="Email" />
-      <input type="password" id="signupPassword" placeholder="Password" />
+    <input id="su-username" placeholder="Username" />
+    <input id="su-email" type="email" placeholder="Email" />
 
-      <label class="checkbox">
-        <input type="checkbox" id="signupShowPassword" />
-        Show password
-      </label>
-
-      <button id="signupBtn">Sign up</button>
-      <div id="signupMessage" class="message"></div>
+    <div class="password-field">
+      <input id="su-password" type="password" placeholder="Password" />
+      <button class="eye" data-target="su-password">👁</button>
     </div>
 
-    <!-- ===== LOGIN CARD ===== -->
-    <div class="card login-card">
-      <h3>Already have an account?</h3>
-
-      <input type="email" id="loginEmail" placeholder="Email" />
-      <input type="password" id="loginPassword" placeholder="Password" />
-
-      <label class="checkbox">
-        <input type="checkbox" id="loginShowPassword" />
-        Show password
-      </label>
-
-      <button id="loginBtn">Log in</button>
-      <div id="loginMessage" class="message"></div>
-    </div>
-
+    <button id="signupBtn">Sign up</button>
+    <p id="signupMsg" class="msg"></p>
   </div>
 
-  <script type="module" src="main.js"></script>
+  <!-- LOGIN -->
+  <div class="card small">
+    <h3>Already have an account?</h3>
+
+    <input id="li-email" type="email" placeholder="Email" />
+
+    <div class="password-field">
+      <input id="li-password" type="password" placeholder="Password" />
+      <button class="eye" data-target="li-password">👁</button>
+    </div>
+
+    <button id="loginBtn">Log in</button>
+    <p id="loginMsg" class="msg"></p>
+  </div>
+
+</div>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>
