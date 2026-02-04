@@ -1,66 +1,63 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-const SUPABASE_URL = "PASTE_YOURS_HERE";
-const SUPABASE_ANON_KEY = "PASTE_YOURS_HERE";
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Elements
-const suUser = document.getElementById("su-username");
-const suEmail = document.getElementById("su-email");
-const suPass = document.getElementById("su-password");
-const suMsg = document.getElementById("signupMsg");
+let mode = "signup";
 
-const liEmail = document.getElementById("li-email");
-const liPass = document.getElementById("li-password");
-const liMsg = document.getElementById("loginMsg");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const authBtn = document.getElementById("authBtn");
+const switchMode = document.getElementById("switchMode");
+const formTitle = document.getElementById("formTitle");
+const authMessage = document.getElementById("authMessage");
+const togglePassword = document.getElementById("togglePassword");
 
-// Show password
-document.querySelectorAll(".eye").forEach(btn => {
-  btn.onclick = () => {
-    const input = document.getElementById(btn.dataset.target);
-    input.type = input.type === "password" ? "text" : "password";
-  };
+// Toggle signup/login
+switchMode.addEventListener("click", (e) => {
+  e.preventDefault();
+  mode = mode === "signup" ? "login" : "signup";
+  formTitle.textContent = mode === "signup" ? "Create account" : "Log in";
+  authBtn.textContent = mode === "signup" ? "Sign up" : "Log in";
+  switchMode.textContent = mode === "signup" ? "Log in" : "Create account";
+  authMessage.textContent = "";
 });
 
-// Signup
-document.getElementById("signupBtn").onclick = async () => {
-  suMsg.textContent = "Signing up...";
+// Show password
+togglePassword.addEventListener("click", () => {
+  password.type = password.type === "password" ? "text" : "password";
+});
 
-  const { data, error } = await supabase.auth.signUp({
-    email: suEmail.value,
-    password: suPass.value
-  });
+// Auth action
+authBtn.addEventListener("click", async () => {
+  authMessage.textContent = "";
 
-  if (error) {
-    suMsg.textContent = error.message;
+  if (!email.value || !password.value) {
+    authMessage.textContent = "Email and password required";
     return;
   }
 
-  await supabase.from("users").insert({
-    user_id: data.user.id,
-    username: suUser.value,
-    credits: 2,
-    role: "user",
-    banned: false
-  });
+  let result;
 
-  suMsg.textContent = "Account created. You can log in.";
-};
-
-// Login
-document.getElementById("loginBtn").onclick = async () => {
-  liMsg.textContent = "Logging in...";
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: liEmail.value,
-    password: liPass.value
-  });
-
-  if (error) {
-    liMsg.textContent = error.message;
-    return;
+  if (mode === "signup") {
+    result = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+    });
+  } else {
+    result = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    });
   }
 
-  liMsg.textContent = "Login successful!";
-};
+  if (result.error) {
+    authMessage.textContent = result.error.message;
+  } else {
+    authMessage.style.color = "#16a34a";
+    authMessage.textContent = "Success! Redirecting...";
+    // later → redirect to app dashboard
+  }
+});
