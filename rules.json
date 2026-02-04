@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": "1.0",
-    "engine": "revologger",
-    "description": "Test rules for initial engine"
+    "engine": "revolog-v4",
+    "description": "Test rules for Revolog v4"
   },
   "global_requirements": {
     "required_context_fields": ["environment", "software", "version"],
@@ -15,11 +15,7 @@
       "matches": { "log_contains": ["ERROR"] },
       "requires": { "context_fields": ["environment"] },
       "evidence": { "must_reference_log": true },
-      "conclusion": {
-        "type": "confirmed_issue",
-        "summary": "A generic error was detected",
-        "allowed_actions": ["Check the error log"]
-      }
+      "conclusion": { "type": "confirmed_issue", "summary": "Generic error detected", "allowed_actions": ["Check the log"] }
     },
     {
       "id": "TEST_WARNING_1",
@@ -27,12 +23,7 @@
       "matches": { "log_contains": ["WARN"] },
       "requires": { "context_fields": ["software"] },
       "evidence": { "must_reference_log": true },
-      "conclusion": {
-        "type": "confirmed_issue",
-        "summary": "A warning was detected",
-        "allowed_actions": ["Investigate the warning"]
-      }
+      "conclusion": { "type": "confirmed_issue", "summary": "Generic warning detected", "allowed_actions": ["Investigate warning"] }
     }
   ]
 }
-
